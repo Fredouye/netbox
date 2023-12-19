@@ -5,7 +5,7 @@ from dcim.choices import DeviceStatusChoices, SiteStatusChoices
 from dcim.models import Device, DeviceRole, DeviceType, Site
 
 
-class NouveauSite(Script):
+class NewBranchScript(Script):
 
     class Meta:
         name = "Nouveau site"
