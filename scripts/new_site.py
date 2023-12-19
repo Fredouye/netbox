@@ -5,7 +5,7 @@ from dcim.choices import DeviceStatusChoices, SiteStatusChoices
 from dcim.models import Device, DeviceRole, DeviceType, Site
 
 
-class NewBranchScript(Script):
+class NouveauSite(Script):
 
     class Meta:
         name = "Nouveau site"
@@ -84,7 +84,7 @@ class NewBranchScript(Script):
                 device_role=server_role
             )
             server.save()
-            self.log_success(f"Created new server: {router}")
+            self.log_success(f"Created new server: {server}")
 
         # Generate a CSV table of new devices
         output = [
