@@ -74,7 +74,7 @@ class NouveauSite(Script):
             self.log_success(f"Created new router: {router}")
        
         # Create Servers
-        server_role = DeviceRole.objects.get(name='Server')
+        server_role = DeviceRole.objects.get(name='ESXi')
         for i in range(1, data['server_count'] + 1):
             server = Device(
                 device_type=data['server_model'],
