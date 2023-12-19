@@ -52,7 +52,7 @@ class NewBranchScript(Script):
         for i in range(1, data['switch_count'] + 1):
             switch = Device(
                 device_type=data['switch_model'],
-                name=f'{site.slug.upper()}-SW-{i}',
+                name=f'{site.slug.upper()}-SWITCH-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
                 device_role=switch_role
@@ -65,7 +65,7 @@ class NewBranchScript(Script):
         for i in range(1, data['router_count'] + 1):
             router = Device(
                 device_type=data['router_model'],
-                name=f'{site.slug.upper()}-RTR-{i}',
+                name=f'{site.slug.upper()}-FIREWALL-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
                 device_role=router_role
@@ -78,7 +78,7 @@ class NewBranchScript(Script):
         for i in range(1, data['server_count'] + 1):
             server = Device(
                 device_type=data['server_model'],
-                name=f'{site.slug.upper()}-VSP-{i}',
+                name=f'{site.slug.upper()}-ESX-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
                 device_role=server_role
