@@ -48,7 +48,7 @@ class NouveauSite(Script):
         self.log_success(f"Created new site: {site}")
 
         # Create access switches
-        switch_role = DeviceRole.objects.get(name='Access Switch')
+        switch_role = DeviceRole.objects.get(name='Switch')
         for i in range(1, data['switch_count'] + 1):
             switch = Device(
                 device_type=data['switch_model'],
@@ -61,7 +61,7 @@ class NouveauSite(Script):
             self.log_success(f"Created new switch: {switch}")
 
         # Create routers
-        router_role = DeviceRole.objects.get(name='WAN Router')
+        router_role = DeviceRole.objects.get(name='Firewall')
         for i in range(1, data['router_count'] + 1):
             router = Device(
                 device_type=data['router_model'],
@@ -74,7 +74,7 @@ class NouveauSite(Script):
             self.log_success(f"Created new router: {router}")
        
         # Create Servers
-        server_role = DeviceRole.objects.get(name='vSphere')
+        server_role = DeviceRole.objects.get(name='Server')
         for i in range(1, data['server_count'] + 1):
             server = Device(
                 device_type=data['server_model'],
