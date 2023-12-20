@@ -11,27 +11,27 @@ class NouveauSite(Script):
         name = "Nouveau site"
         description = "Provisionne un nouveau site"
 
-    nom_site = StringVar(
+    nom_du_site = StringVar(
         description="Nom du nouveau site"
     )
-    switch_count = IntegerVar(
+    nombre_de_switches = IntegerVar(
         description="Nombre de switches à créer"
     )
-    switch_model = ObjectVar(
+    modele_de_switch = ObjectVar(
         description="Modèle de switch",
         model=DeviceType
     )
-    router_count = IntegerVar(
+    nombre_de_firewalls = IntegerVar(
         description="Nombre de firewalls à créer"
     )
-    router_model = ObjectVar(
+    modele_de_firewall = ObjectVar(
         description="Modèle de firewall",
         model=DeviceType
     )
-    server_count = IntegerVar(
+    nombre_de_serveurs = IntegerVar(
         description="Nombre de serveurs à créer"
     )
-    server_model = ObjectVar(
+    modele_de_serveur = ObjectVar(
         description="Modèle de serveur",
         model=DeviceType
     )
@@ -40,8 +40,8 @@ class NouveauSite(Script):
 
         # Create the new site
         site = Site(
-            name=data['nom_site'],
-            slug=slugify(data['nom_site']),
+            name=data['nom_du_site'],
+            slug=slugify(data['nom_du_site']),
             status=SiteStatusChoices.STATUS_PLANNED
         )
         site.save()
@@ -49,9 +49,9 @@ class NouveauSite(Script):
 
         # Create access switches
         switch_role = DeviceRole.objects.get(name='Switch')
-        for i in range(1, data['switch_count'] + 1):
+        for i in range(1, data['nombre_de_switches'] + 1):
             switch = Device(
-                device_type=data['switch_model'],
+                device_type=data['modele_de_switch'],
                 name=f'{site.slug.upper()}-SWITCH-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
@@ -62,9 +62,9 @@ class NouveauSite(Script):
 
         # Create routers
         router_role = DeviceRole.objects.get(name='Firewall')
-        for i in range(1, data['router_count'] + 1):
+        for i in range(1, data['nombre_de_firewalls'] + 1):
             router = Device(
-                device_type=data['router_model'],
+                device_type=data['modele_de_firewall'],
                 name=f'{site.slug.upper()}-FIREWALL-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
@@ -75,9 +75,9 @@ class NouveauSite(Script):
         
         # Create Servers
         server_role = DeviceRole.objects.get(name='Server')
-        for i in range(1, data['server_count'] + 1):
+        for i in range(1, data['nombre_de_serveurs'] + 1):
             server = Device(
-                device_type=data['server_model'],
+                device_type=data['modele_de_serveur'],
                 name=f'{site.slug.upper()}-ESX-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
