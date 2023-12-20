@@ -11,7 +11,7 @@ class NouveauSite(Script):
         name = "Nouveau site"
         description = "Provisionne un nouveau site"
 
-    site_name = StringVar(
+    nom_site = StringVar(
         description="Nom du nouveau site"
     )
     switch_count = IntegerVar(
@@ -40,19 +40,19 @@ class NouveauSite(Script):
 
         # Create the new site
         site = Site(
-            name=data['site_name'],
-            slug=slugify(data['site_name']),
+            name=data['nom_site'],
+            slug=slugify(data['nom_site']),
             status=SiteStatusChoices.STATUS_PLANNED
         )
         site.save()
-        self.log_success(f"Nouveau site créé: {site}")
+        self.log_success(f"Site créé: {site}")
 
         # Create access switches
         switch_role = DeviceRole.objects.get(name='Switch')
         for i in range(1, data['switch_count'] + 1):
             switch = Device(
                 device_type=data['switch_model'],
-                name=f'{site.slug.upper()}-SW-{i}',
+                name=f'{site.slug.upper()}-SWITCH-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
                 device_role=switch_role
@@ -65,7 +65,7 @@ class NouveauSite(Script):
         for i in range(1, data['router_count'] + 1):
             router = Device(
                 device_type=data['router_model'],
-                name=f'{site.slug.upper()}-RTR-{i}',
+                name=f'{site.slug.upper()}-FIREWALL-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
                 device_role=router_role
@@ -78,7 +78,7 @@ class NouveauSite(Script):
         for i in range(1, data['server_count'] + 1):
             server = Device(
                 device_type=data['server_model'],
-                name=f'{site.slug.upper()}-VSP-{i}',
+                name=f'{site.slug.upper()}-ESX-{i}',
                 site=site,
                 status=DeviceStatusChoices.STATUS_PLANNED,
                 device_role=server_role
